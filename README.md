@@ -8,7 +8,7 @@ __keywords__: `shotgun metagenomics` | `assembly` | `biobakery` | `YAMP` | `mega
 
 
 ## 0) Setup
-Let's organized the directory containing our data:
+Let's organize the directory containing our data:
 ```
 study_reads
 └── raw_reads
