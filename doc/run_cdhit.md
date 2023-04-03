@@ -33,10 +33,13 @@ cat BRENDA_CAZy_COG_MERGEM_MIBiG_2022-09.pep >> ${STUDY_PATH}/QCd_reads/study_al
 #SBATCH --cpus-per-task=32
 
 module load StdEnv/2020 cd-hit/4.8.1
-cd-hit -i ${STUDY_PATH}/QCd_reads/study_all.faa -o cdhit_data/CMI2_n510_c70 -c 0.70 -d 0 -M 0 -T 0 -g 1 -G 1
-
-module load StdEnv/2020 megahit/1.2.9
-megahit -1 ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd_R1.fq.gz -2 ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd_R2.fq.gz -t 9 -o ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_megahit_output
+cd-hit -i ${STUDY_PATH}/QCd_reads/study_all.faa -o ${STUDY_PATH}/QCd_reads/study_all_clusters_c70 -c 0.70 -d 0 -M 0 -T 0 -g 1 -G 1
 ```
+
+## __3. Transform cdhit output in tabular format__
+
+
+
+
 
 [Global workflow](../README.md)
