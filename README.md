@@ -8,16 +8,15 @@ A step-by-step guide to produce different data types derived from second generat
 Suggested directory layout:
 
 ```
-.
+study_reads
 ├── QCd_reads
 └── raw_reads
-    ├── sampleA_R1_001.fastq.gz
-    ├── sampleA_R2_001.fastq.gz
-    ├── sampleB_R1_001.fastq.gz
-    ├── sampleB_R2_001.fastq.gz
-    ├── ...
-    ├── sampleZ_R1_001.fastq.gz
-    └── sampleZ_R2_001.fastq.gz
+    ├── sample1_R1_001.fastq.gz
+    ├── sample1_R2_001.fastq.gz
+    ├── sample2_R1_001.fastq.gz
+    ├── sample2_R2_001.fastq.gz
+    ├── sample3_R1_001.fastq.gz
+    └── sample3_R2_001.fastq.gz
 ```
 Let's use $STUDY_PATH as the /path/to/study_reads
 ```

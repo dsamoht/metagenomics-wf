@@ -3,15 +3,17 @@
 ## __1. Prepare input files__
 
 ## 1.1 Edit sample files
-To retrieve from which sample the sequences are from after the clustering, we modify the headers of contigs in the assembly files so that they contain the sample's id.
+To retrieve from which sample the sequences are from after the clustering, we modify the headers in the protein files so that they contain the sample id.
 
-Example:
+Example (save a .backup file if you're not sure of your command):
 ```
-sed -i.backup "s/^>/>$sampleA|/g" ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_megahit_output/final.contigs.fa
+sed -i.backup "s/^>/>sampleA|/g" ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_prodigal_output/sampleA.faa
 ```
-## 1.2 Combine all sample files and databases
+To be done for all protein files prior to the next step.
+
+## 1.2 Combine all protein files from samples and from databases
 ```
-for file in $(find ${STUDY_PATH}/QCd_reads/ | grep final.contigs.fa)
+for file in $(find ${STUDY_PATH}/QCd_reads/ | grep prodigal_output | grep .faa$)
 do
     cat $file >> ${STUDY_PATH}/QCd_reads/study_all.faa
 done
@@ -34,12 +36,9 @@ cat BRENDA_CAZy_COG_MERGEM_MIBiG_2022-09.pep >> ${STUDY_PATH}/QCd_reads/study_al
 
 module load StdEnv/2020 cd-hit/4.8.1
 cd-hit -i ${STUDY_PATH}/QCd_reads/study_all.faa -o ${STUDY_PATH}/QCd_reads/study_all_clusters_c70 -c 0.70 -d 0 -M 0 -T 0 -g 1 -G 1
+
+# transform cdhit output in tabular format
+python matrix_from_cdhit.py ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.clstr > ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.tsv
 ```
-
-## __3. Transform cdhit output in tabular format__
-
-
-
-
 
 [Global workflow](../README.md)

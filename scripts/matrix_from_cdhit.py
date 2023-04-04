@@ -1,4 +1,6 @@
 """
+Adapted from a script by Pier-Luc Plante
+
 argument: .clstr file (cdhit output)
 
 output: throws to stdout the resulting matrix
@@ -34,13 +36,13 @@ if __name__ == "__main__":
         line = line+'\t'+name
     print(line)
 
-    for entry in cluster_dict:
+    for entry, val in cluster_dict.items():
         line_start = str(entry)
         line_content = ""
         line_total = 0
         for name in samples_name:
-            if name in cluster_dict[entry]:
-                line_content = line_content +'\t' + str(cluster_dict[entry].count(name))
+            if name in val:
+                line_content = line_content +'\t' + str(val.count(name))
                 line_total += 1
             else:
                 line_content += '\t0'

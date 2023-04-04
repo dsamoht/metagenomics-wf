@@ -5,7 +5,7 @@ When given paired-end reads, megahit requires that the forward and reverse files
 
 Ex:
 ```
-python split_yamp_qcd_reads.py sampleA_QCd.fq.gz
+python split_yamp_qcd_reads.py ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd.fq.gz
 ```
 It produces 2 files: sampleA_QCd_R1.fq.gz and sampleA_QCd_R2.fq.gz
 

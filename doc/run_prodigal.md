@@ -13,7 +13,7 @@
 #SBATCH --mem=32G
 #SBATCH --cpus-per-task=9
 
-module load StdEnv/2020 megahit/1.2.9
+module load StdEnv/2020 prodigal/2.6.3
 
 prodigal -i ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_megahit_output/final.contigs.fa -o ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_prodigal_output/sampleA.coords.gbk -a ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_prodigal_output/sampleA.faa -p meta
 ```
