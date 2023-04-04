@@ -31,26 +31,26 @@ STUDY_PATH=/path/to/study_reads
 
 <br />
 
-#### 1. [Quality control](/doc/run_YAMP.md)  
+### 1. [Quality control](/doc/run_YAMP.md)  
 
 &#8595;
 
-#### 2. [Assembly](doc/run_megahit.md) | [Reads mapping for taxonomy and functions](/doc/run_metaphlan_humann.md) (independent steps)
+### 2. [Assembly](doc/run_megahit.md) | [Reads mapping for taxonomy and functions](/doc/run_metaphlan_humann.md) (independent steps)
 
 &#8595;
 
-#### 3. [Gene prediction and translation](doc/run_prodigal.md)  
+### 3. [Gene prediction and translation](doc/run_prodigal.md)  
 
 &#8595;
 
-#### 4. [Clusters of orthologous groups of proteins (COGs)](doc/run_cdhit.md)
+### 4. [Clusters of orthologous groups of proteins (COGs)](doc/run_cdhit.md)
 
 &#8595;
 
-#### 5. [COG-derived data types](README.md)  
+### 5. [COG-derived data types](doc/filter_clusters.md)
 
 <br />
 
 </div>
 
-*__Outputs__*: Taxonomical and functional profiles, *de novo* assemblies and COGs matrices
+*__Main outputs__*: Taxonomical and functional profiles and various COGs matrices
