@@ -41,4 +41,4 @@ cd-hit -i ${STUDY_PATH}/QCd_reads/study_all.faa -o ${STUDY_PATH}/QCd_reads/study
 python matrix_from_cdhit.py ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.clstr > ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.tsv
 ```
 
-[Global workflow](../README.md)
+[Global workflow](../README.md#global-workflow)
