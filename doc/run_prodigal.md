@@ -17,4 +17,4 @@ module load StdEnv/2020 prodigal/2.6.3
 
 prodigal -i ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_megahit_output/final.contigs.fa -o ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_prodigal_output/sampleA.coords.gbk -a ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_prodigal_output/sampleA.faa -p meta
 ```
-[Global workflow](../README.md)
+[Global workflow](../README.md#global-workflow)
