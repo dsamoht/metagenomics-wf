@@ -83,4 +83,4 @@ humann -i sampleA_QCd.fq.gz -o humann_res --taxonomic-profile sampleA_taxa_profi
 cp humann_res ${STUDY_PATH}/biobakery_res/sampleA_biobakery/humann_res
 cp sampleA_taxa_profile.tsv ${STUDY_PATH}/biobakery_res/sampleA_biobakery/humann_res/sampleA_taxa_profile.tsv
 ```
-[Global workflow](../README.md)
+[Global workflow](../README.md#global-workflow)
