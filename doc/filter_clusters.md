@@ -58,3 +58,5 @@ grep ">Cluster_" study_all_clusters_GBA_domains.hmmout.tsv | awk '{print $1}' | 
 
 python filter_gene_clusters_from_list.py ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.clstr ${STUDY_PATH}/QCd_reads/ALL_clstr.pkl study_all_GBA_clusters.txt
 ```
+
+[Global workflow](../README.md#global-workflow)
