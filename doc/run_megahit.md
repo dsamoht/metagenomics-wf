@@ -25,4 +25,4 @@ It produces 2 files: sampleA_QCd_R1.fq.gz and sampleA_QCd_R2.fq.gz
 module load StdEnv/2020 megahit/1.2.9
 megahit -1 ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd_R1.fq.gz -2 ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd_R2.fq.gz -t 9 -o ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_megahit_output
 ```
-[Global workflow](../README.md)
+[Global workflow](../README.md#global-workflow)
