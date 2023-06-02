@@ -6,7 +6,6 @@
 ```
 cd $INSTALL_PATH
 ```
-
 ### 1.1 Create a Python environnement for YAMP and its dependencies
 ```
 module load python/3.8.10 nextflow/21.04.3 java/14.0.2 fastqc/0.11.9 bbmap/38.86 bowtie2/2.4.4 gcc/9.3.0 samtools/1.13 diamond/2.0.13
@@ -14,26 +13,36 @@ module load python/3.8.10 nextflow/21.04.3 java/14.0.2 fastqc/0.11.9 bbmap/38.86
 python -m venv YAMP_env
 source YAMP_env/bin/activate
 ```
-### 1.2 Install BBMAP
+### 1.2 Install and test BBMAP
 ```
+# Install BBMAP
 mkdir BBMap && cd BBMap
 wget https://sourceforge.net/projects/bbmap/files/BBMap_38.98.tar.gz ./
 tar -xvzf BBMap_38.98.tar.gz
+
+# Test BBMAP
+bbmap/stats.sh in=bbmap/resources/phix174_ill.ref.fa.gz 
 cd ..
 ```
-### 1.3 Install Multiqc
-
+### 1.3 Update pip installer and install Biobakery 3+
+```
+pip install --no-index --upgrade pip
+pip install humann
+humann_test --run-functional-tests-tools
+```
+### 1.4 Install Multiqc
 ```
 pip install multiqc
 ```
-
-
+### 1.5 Install Metaphlan
+```
+pip install metaphlan
+```
 ### 1.4 Install YAMP
 ```
 # clone the github repository
 git clone https://github.com/alesssia/YAMP.git
 cd YAMP
-
 
 # Download the database of contaminants
 cd ./assets/data/
@@ -47,7 +56,6 @@ mkdir metaphlan_databases
 mkdir uniref
 ```
 
-
 ## __2. Run YAMP (slurm job script example)__
 ```
 #!/bin/bash
@@ -59,7 +67,7 @@ mkdir uniref
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=80G
 
-module load python nextflow/21.04.3 java/14.0.2 fastqc/0.11.9 bbmap/38.86 bowtie2/2.4.4 gcc/9.3.0 samtools/1.13 diamond/2.0.13
+module load module load StdEnv/2020 python/3.11.2 nextflow/22.10.6 java/17.0.2 fastqc/0.11.9 bbmap/38.86 bowtie2/2.4.4 gcc/11.3.0 samtools/1.17 diamond/2.1.6
 
 source $INSTALL_PATH/env_YAMP/bin/activate
 
