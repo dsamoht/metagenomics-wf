@@ -16,7 +16,7 @@ pip install MetaPhlAn
 ```
 Download the *MetaPhlAn* database
 ```
-metaphlan --install --bowtie2db $INSTALL_PATH
+metaphlan --install
 ```
 ## __3. Create a python environnement for HUMAnN and its dependencies__
 INSTALL_PATH: a directory for the environnement and the databases
@@ -54,23 +54,20 @@ humann_databases --download utility_mapping full $INSTALL_PATH --update-config y
 #SBATCH --cpus-per-task=17
 #SBATCH --mem=64G
 
+module load StdEnv/2020 python/3.11.2 gcc/11.3.0 diamond/2.1.6 bowtie2/2.4.4
 source $INSTALL_PATH/metaphlan_env/bin/activate
 
 cd $SLURM_TMPDIR
-cp ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd.fq.gz $SLURM_TMPDIR/sampleA_QCd.fq.gz
+cp ${STUDY_PATH}/QCd_reads/sampleA_QCd/sampleA_QCd.fq.gz .
 
 metaphlan sampleA_QCd.fq.gz --input_type fastq -o sampleA_taxa_profile.tsv --bowtie2db $INSTALL_PATH
 deactivate
 
 source $INSTALL_PATH/humann_env/bin/activate
-# 2023-03 : an upgrade to diamond v2.0.15 is required
-module load StdEnv/2020  gcc/9.3.0 diamond/2.0.15
-
 humann -i sampleA_QCd.fq.gz -o humann_res --taxonomic-profile sampleA_taxa_profile.tsv
 
-# Save the results on disk
-
-cp -r humann_res ${STUDY_PATH}/biobakery_res/sampleA_biobakery/humann_res
+mkdir -p ${STUDY_PATH}/biobakery_res/sampleA_biobakery
+cp -r humann_res ${STUDY_PATH}/biobakery_res/sampleA_biobakery
 cp sampleA_taxa_profile.tsv ${STUDY_PATH}/biobakery_res/sampleA_biobakery/humann_res/sampleA_taxa_profile.tsv
 ```
 [Global workflow](../README.md#global-workflow)
