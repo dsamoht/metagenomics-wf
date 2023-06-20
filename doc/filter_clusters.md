@@ -45,7 +45,7 @@ do
 done
 ```
 
-## 2.3 Run the filtration script
+## 2.3 Run filtration script #2
 
 ```
 python split_cog_db.py ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.clstr ${STUDY_PATH}/QCd_reads/ALL_clstr.pkl
