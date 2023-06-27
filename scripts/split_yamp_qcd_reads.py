@@ -35,6 +35,7 @@ if __name__ == "__main__":
     output_name_r1 = file_.parent.joinpath(sample_name + "_QCd_R1.fq.gz")
     output_name_r2 = file_.parent.joinpath(sample_name + "_QCd_R2.fq.gz")
 
+    # Change this to the forward and reverse identifiers
     fwd_identifier, rv_identifier = "1:N:0", "2:N:0"
     baseID_r1, baseID_r2 = {}, {}
 
