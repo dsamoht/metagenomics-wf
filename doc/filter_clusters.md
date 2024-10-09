@@ -2,6 +2,18 @@
 
 # 1. Filter clusters according to databases
 
+## 1.1 Create python environment and install required modules
+
+```
+python -m venv $INSTALL_PATH/cog_env
+source $INSTALL_PATH/bin/activate
+
+pip install numpy
+pip install pandas
+```
+
+## 1.2 Run filtration script #1
+
 ```
 python filter_gene_clusters.py ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.tsv
 ```
@@ -17,7 +29,24 @@ wget https://ftp.ncbi.nih.gov/pub/COG/COG2020/data/cog-20.cog.csv
 wget https://ftp.ncbi.nih.gov/pub/COG/COG2020/data/cog-20.def.tab
 ```
 
-## 2.2 Run the filtration script
+## 2.2 Clean up the COG metadata
+As of 2023-06-16, cog-20.cog.csv contains superfluous commas at multiple lines, which breaks the filtration script.
+Use a combination of `awk`, `grep` and `sed` to find the relevant lines and remove the problematic commas.
+```
+# Make a backup just in case
+cp cog-20.cog.csv cog-20.cog.csv.backup
+
+# These are the lines that contain the wrong number of fields
+lines=`awk -F ',' '{ print NF != 13 }' cog-20.cog.csv | grep -n 1 | sed 's/:1$//g'`
+
+for l in ${lines[@]}
+do
+  sed -i "${l}s/,$//" cog-20.cog.csv
+done
+```
+
+## 2.3 Run filtration script #2
+
 ```
 python split_cog_db.py ${STUDY_PATH}/QCd_reads/study_all_clusters_c70.clstr ${STUDY_PATH}/QCd_reads/ALL_clstr.pkl
 ```

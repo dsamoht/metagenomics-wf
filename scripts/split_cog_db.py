@@ -13,8 +13,8 @@ import sys
 import pandas as pd
 
 
-gene_to_cog_number = pd.read_csv("cog-20.cog.csv", index_col=0, header=0)
-cog_number_to_cat = pd.read_csv("cog-20.def.tab", sep="\t", index_col=None, header=None)
+gene_to_cog_number = pd.read_csv("cog-20.cog.csv", index_col=None, header=None)
+cog_number_to_cat = pd.read_csv("cog-20.def.tab", sep="\t", index_col=None, header=None, encoding="cp1252")
 
 cog_number_to_category_dict = dict(zip(cog_number_to_cat[0], cog_number_to_cat[1]))
 gene_to_cog_number_dict = {}
@@ -38,12 +38,9 @@ for gene, list_ in gene_to_cog_number_dict.items():
 clstr_to_cog_category = {}
 with open(sys.argv[1], "r", encoding="UTF-8") as clstr_input:
     for line in clstr_input:
-
         if line.startswith(">Cluster"):
             currentCluster = "Cluster_" + line.split()[1]
-  
         elif re.search(">COG", line):
-
             gene = line.split("COG|")[1].split("...")[0]
             try:
                 for cat in gene_to_cog_number_dict[gene]:
@@ -51,7 +48,6 @@ with open(sys.argv[1], "r", encoding="UTF-8") as clstr_input:
                         clstr_to_cog_category[cat] = [currentCluster]
                     else:
                         clstr_to_cog_category[cat].append(currentCluster)
-
             except KeyError:
                 last_underscore_i = gene.rfind("_")
                 tmp = gene[:last_underscore_i] + "." + gene[last_underscore_i+1:]
@@ -65,7 +61,7 @@ with open(sys.argv[2], "rb") as pickled_df:
     base_df = pickle.load(pickled_df)
 clstr_base = set(base_df.columns.values)
 
-for cat, clusters in clstr_to_cog_category:
+for cat, clusters in clstr_to_cog_category.items():
     common_clstr = list(clstr_base.intersection(set(clusters)))
     df_output = base_df[common_clstr]
     with open(f"COG_{cat}_clstr.pkl", "wb") as pickled_output:

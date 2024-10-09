@@ -1,5 +1,5 @@
 """
-1st argument: file containing QC'd reads from both R1 and R2 (YAMP output)
+1st argument: Path to directory containing QC'd reads from both R1 and R2 (YAMP output)
 
 output : 2 files : '[...]_R1.fastq.gz' and '[...]_R2.fastq.gz' containing
              forward and reverse reads, respectively. Sequences with no reverse
@@ -7,6 +7,7 @@ output : 2 files : '[...]_R1.fastq.gz' and '[...]_R2.fastq.gz' containing
 """
 import sys
 import gzip
+import re
 from pathlib import Path
 from itertools import zip_longest
 
@@ -17,30 +18,9 @@ def parse_zip_longest(input_fastq):
     source : https://groverj3.github.io/
     """
     with gzip.open(input_fastq, 'rt') as input_handle:
-        fastq_iterator = (l.rstrip() for l in input_handle)
-        for record in zip_longest(*[fastq_iterator] * 4):
-            yield record
-
-def find_identifier(input_fastq):
-    """
-    Find the "direction" identifier (ex ":1" and ":2") for forward and
-    reverse reads.
-    """
-    fwd_identifier, rv_identifier = "", ""
-    headers = []
-    for record in parse_zip_longest(input_fastq):
-        headers.append(record[0])
-    first, second = sorted(headers)[0:2]
-    if len(first) != len(second):
-        raise ValueError(f"Identifier not found in sequences {first} and {second}.")
-
-    for _, char in enumerate(first):
-        if char != second[_]:
-            fwd_identifier += char
-            rv_identifier += second[_]
-            pos = _
-
-    return fwd_identifier, rv_identifier, pos
+        fastq_iterator = (line.rstrip() for line in input_handle)
+        for entry in zip_longest(*[fastq_iterator] * 4):
+            yield entry
 
 
 if __name__ == "__main__":
@@ -50,19 +30,20 @@ if __name__ == "__main__":
 
     # I/O file names
     file_ = Path(sys.argv[1])
-    file_name = Path(sys.argv[1]).name
+    file_name = file_.name
     sample_name = file_name.replace("_QCd.fq.gz", "")
-    output_name_r1 = Path(sys.argv[1]).parent.joinpath(sample_name+"_QCd_R1.fq.gz")
-    output_name_r2 = Path(sys.argv[1]).parent.joinpath(sample_name+"_QCd_R2.fq.gz")
+    output_name_r1 = file_.parent.joinpath(sample_name + "_QCd_R1.fq.gz")
+    output_name_r2 = file_.parent.joinpath(sample_name + "_QCd_R2.fq.gz")
 
-    fwd_identifier, rv_identifier, pos = find_identifier(file_)
+    # Change this to the forward and reverse identifiers
+    fwd_identifier, rv_identifier = "1:N:0", "2:N:0"
     baseID_r1, baseID_r2 = {}, {}
 
     for record in parse_zip_longest(file_):
-        if record[0][pos] == fwd_identifier:
+        if re.search(fwd_identifier, record[0]):
             r1_id_to_seq[record[0]] = record[1], record[2], record[3]
             baseID_r1[record[0].split()[0]] = record[0]
-        elif record[0][pos] == rv_identifier:
+        elif re.search(rv_identifier, record[0]):
             r2_id_to_seq[record[0]] = record[1], record[2], record[3]
             baseID_r2[record[0].split()[0]] = record[0]
 
